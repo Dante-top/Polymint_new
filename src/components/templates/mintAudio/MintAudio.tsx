@@ -32,8 +32,8 @@ const styles = {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
     width: '100vw',
   },
   button: {

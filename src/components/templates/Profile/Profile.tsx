@@ -15,7 +15,6 @@ const Profile = () => {
 
   useEffect(() => {
     const getUserData = async () => {
-      const params = address;
       try {
         await axios
           .get(`${Server_url}getUserData`, {
@@ -28,12 +27,12 @@ const Profile = () => {
           })
           .then((response) => {
             if (response.data.success) {
+              console.log('response: ', response);
               setUserName(response.data.userName);
               setUserBio(response.data.userBio);
               setPfp(response.data.userAvatar);
               setBanner(response.data.userBanner);
             } else {
-              console.log('response: ', response);
             }
           });
       } catch (e) {
@@ -50,9 +49,9 @@ const Profile = () => {
     <div className="page">
       <div className="mainWindow">
         <div className="mainContent">
-          <img className="profileBanner" src={banner === '' ? defaultImgs[1] : `data:image/jpeg;base64,${banner}`} />
+          <img className="profileBanner" src={banner === '' ? defaultImgs[1] : banner} />
           <div className="pfpContainer">
-            <img className="profilePFP" src={pfp === '' ? defaultImgs[0] : `data:image/jpeg;base64,${pfp}`} />
+            <img className="profilePFP" src={pfp === '' ? defaultImgs[0] : pfp} />
             <p className="profileName">{userName}</p>
             <div className="profileWallet">
               {`${walletAddress.substring(0, 6)}...${walletAddress.substring(walletAddress.length - 4)}`}

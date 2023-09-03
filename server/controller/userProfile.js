@@ -6,8 +6,8 @@ const sequelize = require('sequelize');
 const Op = sequelize.Op;
 
 exports.getProfile = async (req, res, next) => {
-  console.log('address: ', req.body.address);
-  if (!req.body.address) {
+  console.log('address: ', req.query.address);
+  if (!req.query.address) {
     res.status(400).send({
       success: false,
       message: 'Content can not be empty!',
@@ -15,12 +15,14 @@ exports.getProfile = async (req, res, next) => {
     return;
   }
 
-  const user = await UserListDB.findOne({ where: { address: req.body.address } });
+  const user = await UserListDB.findOne({ where: { address: req.query.address } });
+  console.log('user: ', user);
   if (user) {
     console.log('user: ', user);
     res.json({
       success: true,
       userName: user.userName,
+      userBio: user.userBio,
       userAvatar: user.userAvatar,
       userBanner: user.userBanner,
     });

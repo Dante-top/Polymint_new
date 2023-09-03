@@ -3,7 +3,6 @@ import { EvmNft } from '@moralisweb3/common-evm-utils';
 import { Matic } from '@web3uikit/icons';
 import { FC, useEffect, useState } from 'react';
 import ReactAudioPlayer from 'react-audio-player';
-import { resolveIPFS } from 'utils/resolveIPFS';
 import axios from 'axios';
 
 export interface NFTCardParams {
@@ -32,7 +31,7 @@ const NFTCard: FC<NFTCardParams> = ({ nft: { contractType, metadata, tokenUri } 
 
   const getMetaData = async () => {
     if (tokenUri != 'null') {
-      const metaData = await axios.get(tokenUri).then(async (response) => {
+      await axios.get(tokenUri).then(async (response) => {
         const jsonResponse = response.data;
         if (jsonResponse.name) {
           setTokenName(jsonResponse.name);
@@ -90,21 +89,25 @@ const NFTCard: FC<NFTCardParams> = ({ nft: { contractType, metadata, tokenUri } 
             </Box>
             <Matic fontSize="20px" />
           </HStack>
-          <SimpleGrid columns={2} spacing={4} bgColor={descBgColor} padding={2.5} borderRadius="xl" marginTop={2}>
-            {nftType === 'article' && (
-              <>
-                <Box>
-                  <Box as="h4" noOfLines={1} fontWeight="medium" fontSize="sm">
-                    Description
+          {nftType === 'video' ? (
+            <></>
+          ) : (
+            <SimpleGrid columns={2} spacing={4} bgColor={descBgColor} padding={2.5} borderRadius="xl" marginTop={2}>
+              {nftType === 'article' && (
+                <>
+                  <Box>
+                    <Box as="h4" noOfLines={1} fontWeight="medium" fontSize="sm">
+                      Description
+                    </Box>
+                    <Box as="h4" noOfLines={1} fontSize="sm">
+                      {description}
+                    </Box>
                   </Box>
-                  <Box as="h4" noOfLines={1} fontSize="sm">
-                    {description}
-                  </Box>
-                </Box>
-              </>
-            )}
-            {nftType === 'audio' && <ReactAudioPlayer src={audio} controls />}
-          </SimpleGrid>
+                </>
+              )}
+              {nftType === 'audio' && <ReactAudioPlayer src={audio} controls />}
+            </SimpleGrid>
+          )}
         </Box>
       )}
     </>

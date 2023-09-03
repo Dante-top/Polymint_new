@@ -9,6 +9,7 @@ import axios from 'axios';
 import { StoreMetadata } from 'web3/StoreMetaData';
 import { parseEther } from 'viem';
 import { mint } from 'web3/web3';
+import { useColorModeValue } from '@chakra-ui/react';
 
 const styles: any = {
   title: {
@@ -34,8 +35,8 @@ const styles: any = {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
     width: '100vw',
   },
   button: {
